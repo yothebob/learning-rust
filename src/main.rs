@@ -1,6 +1,69 @@
 
 const HOUR_MINUTES :i32 = 60;
 
+fn print_labeled_hours(value: i32, unit_label: char) {
+    println!("The measurement is {value}{unit_label}");
+}
+
+
+fn block_expression() {
+    let y = {
+	let x = 5;
+	x + 1
+    };
+    println!("the value of y is: {y}");
+}
+
+fn five() -> i32 {
+// you signify return type by -> syntax. last statement is allways returned (you can still use return for early return)
+    5
+}
+
+fn plus_one(x: i32) -> i32 { x + 1 } // for some reason this does not return the value if you have a semicolon?
+
+fn conditionals() {
+    let number = 5;
+    // if number {do thing} THIS DOES NOT WORK, conditionals need to be a boolean, try...
+    if number != 0 {
+	println!("this worked");
+    }
+    let testing_val = true;
+    let number = if testing_val { 5 } else { 6 };
+    // let number = if condition { 5 } else { "six" }; // this DOES NOT WORK, you cannot mix types
+}
+
+fn loops() {
+    // loop {
+    // 	println!("this is an endless loop");
+    // }
+
+    let mut counter = 0;
+    let res = loop {
+	counter += 1;
+	if counter == 10 {
+	    break counter; //10
+	    // break counter * 2; //20
+	}
+    };
+    println!("the result of counter is : {counter}");
+    println!("the result of res is : {res}");
+
+    let a = [10,20,30,40,50];
+    for ele in a {
+	println!("{ele}");
+    }
+    for num in (1..5) { println!("{num}"); }
+    for rnum in (1..5).rev() { println!("{rnum}"); }
+}
+
+
+fn five_value() {
+    let five_val = five();
+    println!("five function returned: {five_val}");
+    let five_val_plus_one = plus_one(five_val);
+    println!("five function returned: {five_val_plus_one}");
+}
+
 fn shadow() {
     // shadowing, you can declare a new variable with the same name as a previous var
     // the first will be shadowed by the first 
@@ -64,10 +127,22 @@ fn data_types() {
     //arrays kinda suck, same datatype needed and cannot change length
     // let a = [1, 2, 3, 4, 5]; OR
     let a: [i32; 5] = [1, 2, 3, 4, 5];
-    
+    let first = a[0];
 }
 
+fn area(width: u32, height: u32) -> u32 {
+    width * height
+}
 
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn struct_area(rectangle: &Rectangle) -> u32 {
+     rectangle.width * rectangle.height
+}
 
 fn main() {
     println!("Constants are scoped globally minutes in hour = {HOUR_MINUTES}");
@@ -79,4 +154,16 @@ fn main() {
     println!("the value of x is: {x}");
     println!("SHADOWING:\n");
     shadow();
+    print_labeled_hours(x, 'h');
+    five_value();
+    loops();
+
+    let rect1 = Rectangle{
+	width: 50,
+	height: 30
+    };
+    println!("rect is {:?}", rect1);
+    let are: u32 = struct_area(&rect1);
+    println!("area is {are}");
 }
+
