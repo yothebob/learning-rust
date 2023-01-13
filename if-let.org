@@ -1,0 +1,14 @@
+#+TITLE: Concise Control Flow with if lets
+
+The if let syntax lets you combine if and let into a less verbose way to handle values that match one pattern while ignoring the rest. Consider the program in Listing 6-6 that matches on an Option<u8> value in the config_max variable but only wants to execute code if the value is the Some variant.
+
+#+begin_src rust
+  let config_max = Some(3u8);
+  match config_max {
+      Some(max) => println!("the mex is configured to be {}", max),
+      _ => (),
+  }
+#+end_src
+
+If the value is Some, we print out the value in the Some variant by binding the value to the variable max in the pattern. We don’t want to do anything with the None value. To satisfy the match expression, we have to add _ => () after processing just one variant, which is annoying boilerplate code to add.
+
